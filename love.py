@@ -86,11 +86,36 @@ st.markdown("<h1>💖 AI Love Calculator</h1>", unsafe_allow_html=True)
 st.markdown("<h4 style='text-align:center;'>Find your love compatibility 😄</h4>", unsafe_allow_html=True)
 
 # ❤️ Logic (stable + order independent)
+# ❤️ Logic (Special Match + Stable Score)
 def love_score(name1, name2):
-    name1 = name1.strip().lower()
-    name2 = name2.strip().lower()
+    # Normalize names
+    def normalize(name):
+        return "".join(name.lower().split())
 
-    names = sorted([name1, name2])
+    n1 = normalize(name1)
+    n2 = normalize(name2)
+
+    # Possible keywords for Uday
+    uday_names = {
+        "uday",
+        "udayprakash",
+        "udayjadam",
+        "udayprakashjadam"
+    }
+
+    # Possible keywords for Sapna
+    sapna_names = {
+        "sapna",
+        "sapnashankhala"
+    }
+
+    # ❤️ Always return 100%
+    if ((n1 in uday_names and n2 in sapna_names) or
+        (n2 in uday_names and n1 in sapna_names)):
+        return 100
+
+    # Default stable score for everyone else
+    names = sorted([n1, n2])
     combined = names[0] + names[1]
 
     hash_value = hashlib.md5(combined.encode()).hexdigest()
